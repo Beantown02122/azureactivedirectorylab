@@ -10,15 +10,15 @@ The objective was to configure a secure web server inside an Azure-hosted Ubuntu
 
 ## 1. Azure Virtual Machine Deployment
 
-### Ubuntu VM Running in Azure
+### Ubuntu Virtual Machine Running in Azure
 
 ![Ubuntu VM Running](unbuntuCapture.JPG)
 
-The Ubuntu 20.04 LTS virtual machine was successfully deployed in Microsoft Azure and accessed through Remote Desktop.
+The Ubuntu virtual machine was successfully deployed in Microsoft Azure and accessed through Remote Desktop.
 
 ---
 
-## 2. SSL Certificate Generation
+## 2. SSL Key Generation Using OpenSSL
 
 ### Private Key Generation
 
@@ -30,7 +30,7 @@ An RSA private key was generated using OpenSSL with AES-256 encryption.
 
 ![Public Key Generation](Publickey.JPG)
 
-The public key was extracted from the private key for secure encryption processes.
+The public key was extracted from the private key for encryption operations.
 
 ---
 
@@ -38,9 +38,9 @@ The public key was extracted from the private key for secure encryption processe
 
 ### SSL Configuration File
 
-![Apache SSL Configuration](IMG_5770.jpg)
+![Apache SSL Configuration](Step 2.1.JPG)
 
-Apache was configured to enable SSL by referencing the generated certificate and key files.
+Apache was configured to enable SSL by referencing the generated certificate and key files inside the default-ssl.conf configuration file.
 
 ---
 
@@ -48,9 +48,9 @@ Apache was configured to enable SSL by referencing the generated certificate and
 
 ### HTTPS Functioning Properly
 
-![HTTPS Test](Test HTTPS (for Screenshot #2).JPG)
+![HTTPS Working](Test HTTPS (for Screenshot #2).JPG)
 
-The website loads successfully over HTTPS, confirming SSL configuration is working.
+The website loads successfully over HTTPS, confirming SSL configuration is operational.
 
 ### HTTP Access Blocked After HTTPS Enforcement
 
@@ -60,7 +60,17 @@ HTTP access fails after enforcing HTTPS-only configuration, ensuring encrypted c
 
 ---
 
-## 5. Active Directory Group Policy Configuration
+## 5. Remote Desktop Authentication Test
+
+### Domain Credential Enforcement
+
+![RDP Authentication Failure](Screenshot #1 (Step 4.3.c).JPG)
+
+Remote login attempt demonstrating credential authentication enforcement within the Azure lab environment.
+
+---
+
+## 6. Active Directory Group Policy Configuration
 
 ### Group Policy Linked to Students OU
 
@@ -70,21 +80,14 @@ The Students Lockdown Policy was successfully linked to the Students Organizatio
 
 ---
 
-## 6. Remote Desktop Authentication Test
-
-![RDP Credential Attempt](Screenshot #1 (Step 4.3.c).JPG)
-
-Remote login attempt demonstrating credential authentication and domain enforcement.
-
----
-
 ## Security Concepts Demonstrated
 
 - Azure Virtual Machine Deployment  
 - SSL/TLS Encryption  
 - Public and Private Key Cryptography  
-- HTTPS Enforcement  
 - Apache Web Server Configuration  
+- HTTPS Enforcement  
+- Remote Authentication Controls  
 - Active Directory Organizational Units  
 - Group Policy Management  
 
