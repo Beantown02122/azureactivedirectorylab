@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-This lab demonstrates deployment and configuration of an Azure virtual machine, SSL/TLS encryption setup, HTTPS enforcement, OpenSSL key generation, and Active Directory Group Policy configuration.
+This lab demonstrates the deployment and secure configuration of an Azure-hosted Ubuntu virtual machine. The project includes SSL/TLS certificate generation, Apache web server hardening, HTTPS enforcement, and Active Directory Group Policy configuration.
 
-The objective was to configure a secure Apache web server inside an Azure-hosted Ubuntu virtual machine and apply directory-level security controls.
+The objective was to configure a secure Apache web server inside an Azure virtual machine and apply directory-based security controls using Active Directory.
 
 ---
 
@@ -14,7 +14,9 @@ The objective was to configure a secure Apache web server inside an Azure-hosted
 
 ![Ubuntu VM](unbuntucapture.JPG)
 
-The Ubuntu virtual machine was successfully deployed in Microsoft Azure and accessed remotely.
+The Ubuntu virtual machine was successfully deployed in Microsoft Azure and accessed remotely through secure authentication.
+
+This confirms proper cloud resource provisioning and remote connectivity.
 
 ---
 
@@ -24,13 +26,15 @@ The Ubuntu virtual machine was successfully deployed in Microsoft Azure and acce
 
 ![Private Key](privatekey.JPG)
 
-An RSA private key was generated using OpenSSL with AES-256 encryption.
+An RSA private key was generated using OpenSSL with AES-256 encryption to protect the key material.
 
 ### Public Key Extraction
 
 ![Public Key](publickey.JPG)
 
-The public key was extracted from the private key for encryption processes.
+The corresponding public key was extracted from the private key to support encrypted communication.
+
+This establishes the foundation for SSL/TLS encryption.
 
 ---
 
@@ -40,7 +44,18 @@ The public key was extracted from the private key for encryption processes.
 
 ![Apache SSL Config](apachesslconfig.JPG)
 
-Apache was configured inside `/etc/apache2/sites-available/default-ssl.conf` to enable SSL by referencing the certificate and key files.
+Apache was configured within:
+
+/etc/apache2/sites-available/default-ssl.conf
+
+The configuration references the generated certificate and private key files to enable secure HTTPS communication.
+
+SSL was enabled using:
+
+a2enmod ssl  
+a2ensite default-ssl  
+
+This ensures encrypted web traffic.
 
 ---
 
@@ -50,13 +65,15 @@ Apache was configured inside `/etc/apache2/sites-available/default-ssl.conf` to 
 
 ![HTTPS Working](httpworking.JPG)
 
-The website loads successfully over HTTPS, confirming SSL configuration is operational.
+The web server loads successfully over HTTPS, confirming SSL configuration is active and functioning.
 
 ### HTTP Blocked After HTTPS Enforcement
 
 ![HTTP Blocked](httpblocked.JPG)
 
-HTTP access fails after enforcing HTTPS-only configuration, ensuring encrypted communication.
+HTTP access was disabled or redirected to HTTPS, preventing unencrypted communication.
+
+This enforces transport layer security and protects data in transit.
 
 ---
 
@@ -66,7 +83,9 @@ HTTP access fails after enforcing HTTPS-only configuration, ensuring encrypted c
 
 ![RDP Authentication](rdp-authentication.JPG)
 
-Remote login attempt demonstrating credential authentication enforcement within the Azure environment.
+A remote login attempt demonstrates credential-based authentication enforcement within the Azure environment.
+
+This validates identity-based access control.
 
 ---
 
@@ -78,6 +97,8 @@ Remote login attempt demonstrating credential authentication enforcement within 
 
 The Students Lockdown Policy was successfully linked to the Students Organizational Unit within Active Directory.
 
+This confirms centralized policy enforcement at the directory level.
+
 ---
 
 ## Security Concepts Demonstrated
@@ -85,10 +106,8 @@ The Students Lockdown Policy was successfully linked to the Students Organizatio
 - Azure Virtual Machine Deployment  
 - SSL/TLS Encryption  
 - Public and Private Key Cryptography  
-- Apache Web Server Configuration  
+- Apache Web Server Hardening  
 - HTTPS Enforcement  
-- Remote Desktop Authentication Controls  
+- Identity-Based Access Control  
 - Active Directory Organizational Units  
 - Group Policy Management  
-
----
